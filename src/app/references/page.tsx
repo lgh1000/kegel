@@ -59,12 +59,12 @@ export default function References() {
       </div>
 
       <div className="mt-8 text-center">
-        <a 
-          href="/"
+        <button 
+          onClick={() => window.location.href = '/'}
           className="text-blue-500 hover:text-blue-700"
         >
           Return to Exercise Timer
-        </a>
+        </button>
       </div>
     </div>
   );
