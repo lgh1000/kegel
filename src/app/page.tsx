@@ -828,10 +828,10 @@ useEffect(() => {
         {/* Instruction Boxes - reduced margins and padding */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-4">
           <div className="p-2 rounded-lg bg-amber-500">
-            <p className="text-sm">KEGEL: focus on your vagina/penis. Pull it in, without contracting your belly, like you are stopping yourself from peeing. For longer reps, the pulling should get stronger the more the circle closes in (pull the circle in). The pulling should lessen the more the circle expands out.</p>
+            <p className="text-sm">KEGEL / PULL: focus on your vagina/penis. Pull it in, without contracting your belly, like you are stopping yourself from peeing. For longer reps, the pulling should get stronger the more the circle closes in (pull the circle in). The pulling should lessen the more the circle expands out.</p>
           </div>
           <div className="p-2 rounded-lg bg-amber-500">
-            <p className="text-sm">REVERSE KEGEL: focus on your anus and push like you are about to fart. Except, for a reverse Kegel, move the focus forward to your vagina/penis and push, while tensing your lower belly. For longer reps, the pushing should get stronger the more the circle expands out (push the circle out). The pushing should lessen the more the circle closes in.</p>
+            <p className="text-sm">REVERSE KEGEL / PUSH: focus on your anus and push like you are about to fart. Except, for a reverse Kegel, move the focus forward to your vagina/penis and push, while tensing your lower belly. For longer reps, the pushing should get stronger the more the circle expands out (push the circle out). The pushing should lessen the more the circle closes in.</p>
           </div>
         </div>
   
