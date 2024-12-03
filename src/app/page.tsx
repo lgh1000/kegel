@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Play, Pause, RotateCcw } from 'lucide-react';
 
+
+
 const ExerciseMode = {
   BOTH: 'both',
   STRENGTHEN: 'strengthen',
@@ -15,13 +17,47 @@ const easeInOutCubic = (x: number) => {
 const MIN_SCALE = 0.26;  // Smallest circle size (26% of original)
 const DEFAULT_SCALE = 1; // Default circle size (100% of original)
 
+interface ExercisePattern {
+  pullTime: number;
+  relaxTime: number;
+  reps: number;
+}
 
+interface LevelPattern {
+  strength_pull: ExercisePattern;
+  strength_push: ExercisePattern;
+  aerobic_pull: ExercisePattern;
+  aerobic_push: ExercisePattern;
+  endurance_pull: ExercisePattern;
+  endurance_push: ExercisePattern;
+}
+
+interface KnownPatterns {
+  [key: number]: LevelPattern;
+}
+
+// Add these after your existing interfaces
+interface Exercise {
+  type: 'strength' | 'aerobic' | 'endurance';
+  action: 'pull' | 'push';
+  pullTime: number;
+  relaxTime: number;
+  reps: number;
+}
+
+interface ExerciseLevel {
+  sets: Exercise[];
+}
+
+interface Levels {
+  [key: number]: ExerciseLevel;
+}
 
 // Generate exercise patterns for all levels
-const generateExerciseLevels = () => {
-  const levels = {};
+const generateExerciseLevels = (): Levels => {
+  const levels: Levels = {};  // Type the levels object
   const knownLevels = [1, 10, 23, 25];
-  const knownPatterns = {
+  const knownPatterns: KnownPatterns = {
     1: {
       strength_pull: { pullTime: 4, relaxTime: 4, reps: 4 },
       strength_push: { pullTime: 4, relaxTime: 4, reps: 4 },
@@ -77,7 +113,7 @@ const generateExerciseLevels = () => {
     const upperLevel = Math.min(...knownLevels.filter(l => l >= level));
     const ratio = (level - lowerLevel) / (upperLevel - lowerLevel);
 
-    const interpolate = (lower, upper) => ({
+    const interpolate = (lower: ExercisePattern, upper: ExercisePattern): ExercisePattern => ({
       pullTime: Number((lower.pullTime + (upper.pullTime - lower.pullTime) * ratio).toFixed(1)),
       relaxTime: Number((lower.relaxTime + (upper.relaxTime - lower.relaxTime) * ratio).toFixed(1)),
       reps: Math.round(lower.reps + (upper.reps - lower.reps) * ratio)
@@ -185,6 +221,7 @@ useEffect(() => {
   if (!isActive || !getCurrentExercise()) return;
   
   const exercise = getCurrentExercise();
+  if (!exercise) return; 
   
   if (isRest) {
     setScale(DEFAULT_SCALE);
@@ -199,7 +236,8 @@ useEffect(() => {
   }
 
   // Handle regular exercise phases
-  let startScale, endScale;
+  let startScale: number = DEFAULT_SCALE;
+  let endScale: number = DEFAULT_SCALE;
   
   if (exercise.action === 'pull') {
     if (phase === 'pull') {
@@ -223,7 +261,7 @@ useEffect(() => {
   const startTime = performance.now();
   const duration = (phase === 'relax' ? exercise.relaxTime : exercise.pullTime) * 1000;
 
-  const animate = (currentTime) => {
+  const animate = (currentTime: number) => {
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / duration, 1);
     const easedProgress = easeInOutCubic(progress);
@@ -631,7 +669,7 @@ useEffect(() => {
 
   // Timer effect
   useEffect(() => {
-    let interval;
+    let interval: NodeJS.Timeout | undefined;
     
     if (isActive) {
       interval = setInterval(() => {
@@ -782,10 +820,10 @@ useEffect(() => {
               ) : getCurrentExercise() && (
                 <>
                   <span className="text-sm md:text-base">
-                    {getCurrentExercise().type.toUpperCase()} - {phase === 'relax' ? 'RELAX' : getCurrentExercise().action.toUpperCase()}
+                    {getCurrentExercise()?.type.toUpperCase()} - {phase === 'relax' ? 'RELAX' : getCurrentExercise()?.action.toUpperCase()}
                   </span>
                   <span className="text-xs md:text-sm">
-                    Rep {currentRep + 1}/{getCurrentExercise().reps}
+                    Rep {currentRep + 1}/{getCurrentExercise()?.reps}
                   </span>
                 </>
               )}
