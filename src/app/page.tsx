@@ -857,7 +857,7 @@ useEffect(() => {
           }}
           className="px-4 py-2 rounded-lg bg-teal-400 text-white hover:bg-green-400 text-sm text-center"
         >
-          Completed level easily 2/day for a week without pain. Ready for Next level!
+          Completed this level easily 2/day x 1 week without pain. Ready for the next Strength-Cardio-Endurance level of 25 levels!
         </button>
       </div>
   
