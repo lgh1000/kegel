@@ -9,7 +9,7 @@ const ExerciseMode = {
 };
 
 // animation function
-const easeInOutCubic = (x) => {
+const easeInOutCubic = (x: number) => {
   return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 };
 const MIN_SCALE = 0.26;  // Smallest circle size (26% of original)
